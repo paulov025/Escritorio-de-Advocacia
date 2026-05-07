@@ -1,0 +1,659 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LexFlow — Sistema Jurídico</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/auth.css" />
+  </head>
+  <body>
+    <!-- AUTH SCREEN -->
+    <div id="auth-screen" class="auth-screen">
+      <div class="auth-bg">
+        <div class="auth-bg-grid"></div>
+        <div class="auth-bg-glow glow-1"></div>
+        <div class="auth-bg-glow glow-2"></div>
+        <div class="floating-particles" id="particles"></div>
+      </div>
+
+      <div class="auth-container">
+        <div class="auth-brand">
+          <div class="brand-logo">
+            <div class="logo-icon">
+              <svg viewBox="0 0 40 40" fill="none">
+                <path
+                  d="M20 4L36 12V28L20 36L4 28V12L20 4Z"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  fill="none"
+                />
+                <path
+                  d="M20 10L30 15V25L20 30L10 25V15L20 10Z"
+                  fill="currentColor"
+                  opacity="0.15"
+                />
+                <path
+                  d="M14 20H26M20 14V26"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </div>
+            <span class="brand-name">LexFlow</span>
+          </div>
+          <p class="brand-tagline">Gestão Jurídica de Alta Performance</p>
+        </div>
+
+        <!-- LOGIN FORM -->
+        <div class="auth-card" id="login-card">
+          <div class="auth-card-header">
+            <h1>Bem-vindo de volta</h1>
+            <p>Entre com suas credenciais para continuar</p>
+          </div>
+          <form class="auth-form" id="login-form">
+            <div class="form-group">
+              <label>E-mail profissional</label>
+              <div class="input-wrapper">
+                <svg class="input-icon" viewBox="0 0 20 20" fill="none">
+                  <path
+                    d="M2.5 6.5L10 11L17.5 6.5M3 5H17C17.8 5 18.5 5.7 18.5 6.5V13.5C18.5 14.3 17.8 15 17 15H3C2.2 15 1.5 14.3 1.5 13.5V6.5C1.5 5.7 2.2 5 3 5Z"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                  />
+                </svg>
+                <input
+                  type="email"
+                  id="login-email"
+                  placeholder="seu@email.com"
+                  required
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Senha</label>
+              <div class="input-wrapper">
+                <svg class="input-icon" viewBox="0 0 20 20" fill="none">
+                  <rect
+                    x="3"
+                    y="9"
+                    width="14"
+                    height="10"
+                    rx="2"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M7 9V6C7 3.8 8.8 2 11 2C13.2 2 15 3.8 15 6V9"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                  />
+                </svg>
+                <input
+                  type="password"
+                  id="login-senha"
+                  placeholder="••••••••"
+                  required
+                />
+                <button
+                  type="button"
+                  class="toggle-pw"
+                  onclick="togglePw('login-senha', this)"
+                >
+                  <svg viewBox="0 0 20 20" fill="none">
+                    <path
+                      d="M1 10C1 10 4.5 4 10 4C15.5 4 19 10 19 10C19 10 15.5 16 10 16C4.5 16 1 10 1 10Z"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                    />
+                    <circle
+                      cx="10"
+                      cy="10"
+                      r="2.5"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div id="login-error" class="form-error hidden"></div>
+            <button type="submit" class="btn-primary btn-full" id="login-btn">
+              <span>Entrar no Sistema</span>
+              <svg viewBox="0 0 20 20" fill="none">
+                <path
+                  d="M4 10H16M12 6L16 10L12 14"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+          </form>
+          <div class="auth-footer">
+            <p>
+              Ainda não tem conta?
+              <button class="link-btn" onclick="showCadastro()">
+                Criar cadastro
+              </button>
+            </p>
+          </div>
+        </div>
+
+        <!-- CADASTRO FORM -->
+        <div class="auth-card hidden" id="cadastro-card">
+          <div class="auth-card-header">
+            <h1>Criar sua conta</h1>
+            <p>Preencha os dados para começar</p>
+          </div>
+          <form class="auth-form" id="cadastro-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Nome completo</label>
+                <div class="input-wrapper">
+                  <svg class="input-icon" viewBox="0 0 20 20" fill="none">
+                    <circle
+                      cx="10"
+                      cy="6"
+                      r="3.5"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                    />
+                    <path
+                      d="M2 18C2 14.7 5.6 12 10 12C14.4 12 18 14.7 18 18"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                    />
+                  </svg>
+                  <input
+                    type="text"
+                    id="cad-nome"
+                    placeholder="Dr. João Silva"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Telefone</label>
+                <div class="input-wrapper">
+                  <svg class="input-icon" viewBox="0 0 20 20" fill="none">
+                    <path
+                      d="M5 2H9L11 7L8.5 8.5C9.5 10.5 11.5 12.5 13.5 13.5L15 11L20 13V17C20 18.1 19.1 19 18 19C9.7 19 2 11.3 2 3C2 1.9 2.9 1 4 1"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                    />
+                  </svg>
+                  <input
+                    type="tel"
+                    id="cad-tel"
+                    placeholder="(11) 99999-0000"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>E-mail profissional</label>
+              <div class="input-wrapper">
+                <svg class="input-icon" viewBox="0 0 20 20" fill="none">
+                  <path
+                    d="M2.5 6.5L10 11L17.5 6.5M3 5H17C17.8 5 18.5 5.7 18.5 6.5V13.5C18.5 14.3 17.8 15 17 15H3C2.2 15 1.5 14.3 1.5 13.5V6.5C1.5 5.7 2.2 5 3 5Z"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                  />
+                </svg>
+                <input
+                  type="email"
+                  id="cad-email"
+                  placeholder="seu@escritorio.com"
+                  required
+                />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>OAB (opcional)</label>
+                <div class="input-wrapper">
+                  <svg class="input-icon" viewBox="0 0 20 20" fill="none">
+                    <rect
+                      x="3"
+                      y="3"
+                      width="14"
+                      height="14"
+                      rx="2"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                    />
+                    <path
+                      d="M7 7H13M7 10H13M7 13H10"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                    />
+                  </svg>
+                  <input type="text" id="cad-oab" placeholder="OAB/SP 123456" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Especialidade</label>
+                <div class="input-wrapper">
+                  <svg class="input-icon" viewBox="0 0 20 20" fill="none">
+                    <path
+                      d="M10 2L12.5 7.5H18L13.5 11L15.5 16.5L10 13L4.5 16.5L6.5 11L2 7.5H7.5L10 2Z"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                    />
+                  </svg>
+                  <input
+                    type="text"
+                    id="cad-esp"
+                    placeholder="Direito Trabalhista"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Senha</label>
+              <div class="input-wrapper">
+                <svg class="input-icon" viewBox="0 0 20 20" fill="none">
+                  <rect
+                    x="3"
+                    y="9"
+                    width="14"
+                    height="10"
+                    rx="2"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M7 9V6C7 3.8 8.8 2 11 2C13.2 2 15 3.8 15 6V9"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                  />
+                </svg>
+                <input
+                  type="password"
+                  id="cad-senha"
+                  placeholder="Mínimo 6 caracteres"
+                  required
+                />
+                <button
+                  type="button"
+                  class="toggle-pw"
+                  onclick="togglePw('cad-senha', this)"
+                >
+                  <svg viewBox="0 0 20 20" fill="none">
+                    <path
+                      d="M1 10C1 10 4.5 4 10 4C15.5 4 19 10 19 10C19 10 15.5 16 10 16C4.5 16 1 10 1 10Z"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                    />
+                    <circle
+                      cx="10"
+                      cy="10"
+                      r="2.5"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div id="cad-error" class="form-error hidden"></div>
+            <button type="submit" class="btn-primary btn-full" id="cad-btn">
+              <span>Criar Conta Gratuita</span>
+              <svg viewBox="0 0 20 20" fill="none">
+                <path
+                  d="M10 2V18M2 10H18"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </button>
+          </form>
+          <div class="auth-footer">
+            <p>
+              Já tem conta?
+              <button class="link-btn" onclick="showLogin()">
+                Fazer login
+              </button>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- APP DASHBOARD -->
+    <div id="app-screen" class="app-screen hidden">
+      <!-- SIDEBAR -->
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+          <div class="logo-icon small">
+            <svg viewBox="0 0 40 40" fill="none">
+              <path
+                d="M20 4L36 12V28L20 36L4 28V12L20 4Z"
+                stroke="currentColor"
+                stroke-width="1.5"
+                fill="none"
+              />
+              <path
+                d="M14 20H26M20 14V26"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+          </div>
+          <span>LexFlow</span>
+          <button class="sidebar-close" onclick="toggleSidebar()">✕</button>
+        </div>
+
+        <nav class="sidebar-nav">
+          <button
+            class="nav-item active"
+            data-page="dashboard"
+            onclick="navigate('dashboard', this)"
+          >
+            <svg viewBox="0 0 20 20" fill="none">
+              <rect
+                x="2"
+                y="2"
+                width="7"
+                height="7"
+                rx="1.5"
+                stroke="currentColor"
+                stroke-width="1.5"
+              />
+              <rect
+                x="11"
+                y="2"
+                width="7"
+                height="7"
+                rx="1.5"
+                stroke="currentColor"
+                stroke-width="1.5"
+              />
+              <rect
+                x="2"
+                y="11"
+                width="7"
+                height="7"
+                rx="1.5"
+                stroke="currentColor"
+                stroke-width="1.5"
+              />
+              <rect
+                x="11"
+                y="11"
+                width="7"
+                height="7"
+                rx="1.5"
+                stroke="currentColor"
+                stroke-width="1.5"
+              />
+            </svg>
+            <span>Dashboard</span>
+          </button>
+          <button
+            class="nav-item"
+            data-page="processos"
+            onclick="navigate('processos', this)"
+          >
+            <svg viewBox="0 0 20 20" fill="none">
+              <path
+                d="M4 4H16C16.6 4 17 4.4 17 5V15C17 15.6 16.6 16 16 16H4C3.4 16 3 15.6 3 15V5C3 4.4 3.4 4 4 4Z"
+                stroke="currentColor"
+                stroke-width="1.5"
+              />
+              <path
+                d="M7 8H13M7 11H11"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+              />
+            </svg>
+            <span>Processos</span>
+          </button>
+          <button
+            class="nav-item"
+            data-page="clientes"
+            onclick="navigate('clientes', this)"
+          >
+            <svg viewBox="0 0 20 20" fill="none">
+              <circle
+                cx="8"
+                cy="6"
+                r="3"
+                stroke="currentColor"
+                stroke-width="1.5"
+              />
+              <path
+                d="M2 18C2 14.7 4.7 12 8 12C11.3 12 14 14.7 14 18"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+              />
+              <path
+                d="M15 8L17 10L20 6"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span>Clientes</span>
+          </button>
+          <button
+            class="nav-item"
+            data-page="prazos"
+            onclick="navigate('prazos', this)"
+          >
+            <svg viewBox="0 0 20 20" fill="none">
+              <circle
+                cx="10"
+                cy="10"
+                r="7.5"
+                stroke="currentColor"
+                stroke-width="1.5"
+              />
+              <path
+                d="M10 5.5V10.5L13 13"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+              />
+            </svg>
+            <span>Prazos</span>
+            <span class="nav-badge" id="prazos-badge"></span>
+          </button>
+          <button
+            class="nav-item"
+            data-page="financeiro"
+            onclick="navigate('financeiro', this)"
+          >
+            <svg viewBox="0 0 20 20" fill="none">
+              <circle
+                cx="10"
+                cy="10"
+                r="7.5"
+                stroke="currentColor"
+                stroke-width="1.5"
+              />
+              <path
+                d="M10 6V7M10 13V14M7.5 9C7.5 8 8.6 7.5 10 7.5C11.4 7.5 12.5 8.2 12.5 9.2C12.5 10.2 11.4 10.5 10 10.5C8.6 10.5 7.5 11 7.5 12C7.5 13 8.6 13.5 10 13.5C11.4 13.5 12.5 13 12.5 12"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+              />
+            </svg>
+            <span>Financeiro</span>
+          </button>
+          <button
+            class="nav-item"
+            data-page="documentos"
+            onclick="navigate('documentos', this)"
+          >
+            <svg viewBox="0 0 20 20" fill="none">
+              <path
+                d="M5 2H12L17 7V18C17 18.6 16.6 19 16 19H5C4.4 19 4 18.6 4 18V3C4 2.4 4.4 2 5 2Z"
+                stroke="currentColor"
+                stroke-width="1.5"
+              />
+              <path
+                d="M12 2V7H17"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M7 11H13M7 14H11"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+              />
+            </svg>
+            <span>Documentos</span>
+          </button>
+          <button
+            class="nav-item"
+            data-page="calculadora"
+            onclick="navigate('calculadora', this)"
+          >
+            <svg viewBox="0 0 20 20" fill="none">
+              <rect
+                x="3"
+                y="2"
+                width="14"
+                height="16"
+                rx="2"
+                stroke="currentColor"
+                stroke-width="1.5"
+              />
+              <path
+                d="M7 6H13M7 10H9M11 10H13M7 13H9M11 13H13"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+              />
+            </svg>
+            <span>Calculadora</span>
+          </button>
+          <button
+            class="nav-item"
+            data-page="trabalhista"
+            onclick="navigate('trabalhista', this)"
+          >
+            <svg viewBox="0 0 20 20" fill="none">
+              <path
+                d="M10 2L13 8H19L14 12L16 18L10 14L4 18L6 12L1 8H7L10 2Z"
+                stroke="currentColor"
+                stroke-width="1.5"
+              />
+            </svg>
+            <span>Dir. Trabalhista</span>
+          </button>
+        </nav>
+
+        <div class="sidebar-user" id="sidebar-user">
+          <div class="user-avatar" id="user-avatar-text">JA</div>
+          <div class="user-info">
+            <span id="user-name-sidebar">Carregando...</span>
+            <span id="user-oab-sidebar" class="user-sub"></span>
+          </div>
+          <button class="logout-btn" onclick="logout()" title="Sair">
+            <svg viewBox="0 0 20 20" fill="none">
+              <path
+                d="M13 7L17 10M17 10L13 13M17 10H7M10 4H5C4.4 4 4 4.4 4 5V15C4 15.6 4.4 16 5 16H10"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <main class="main-content">
+        <header class="top-bar">
+          <button class="menu-btn" onclick="toggleSidebar()">
+            <svg viewBox="0 0 20 20" fill="none">
+              <path
+                d="M3 5H17M3 10H17M3 15H17"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+              />
+            </svg>
+          </button>
+          <div class="top-bar-title" id="page-title">Dashboard</div>
+          <div class="top-bar-actions">
+            <button
+              class="btn-ghost"
+              id="top-action-btn"
+              onclick="openCreateModal()"
+            >
+              <svg viewBox="0 0 20 20" fill="none">
+                <path
+                  d="M10 3V17M3 10H17"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+              </svg>
+              <span id="top-action-label">Novo</span>
+            </button>
+          </div>
+        </header>
+
+        <!-- PAGE CONTENTS -->
+        <div class="page-content" id="page-content"></div>
+      </main>
+    </div>
+
+    <!-- MODAL -->
+    <div
+      class="modal-overlay hidden"
+      id="modal-overlay"
+      onclick="closeModal(event)"
+    >
+      <div class="modal" id="modal">
+        <div class="modal-header">
+          <h3 id="modal-title">Novo Item</h3>
+          <button class="modal-close" onclick="closeModalDirect()">✕</button>
+        </div>
+        <div class="modal-body" id="modal-body"></div>
+      </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/pages/dashboard.js"></script>
+    <script src="js/pages/processos.js"></script>
+    <script src="js/pages/clientes.js"></script>
+    <script src="js/pages/prazos.js"></script>
+    <script src="js/pages/financeiro.js"></script>
+    <script src="js/pages/documentos.js"></script>
+    <script src="js/pages/calculadora.js"></script>
+    <script src="js/pages/trabalhista.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/particles.js"></script>
+  </body>
+</html>
